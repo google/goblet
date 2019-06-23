@@ -1,0 +1,2 @@
+#!/bin/bash
+bazel run //:gazelle -- update-repos -from_file=go.mod -prune=true -to_macro=goblet_deps.bzl%goblet_deps
