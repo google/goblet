@@ -18,9 +18,9 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
-	"net"
 	"net/http"
 	"net/http/cgi"
+	"net/http/httptest"
 	"net/url"
 	"os"
 	"os/exec"
@@ -54,9 +54,9 @@ func init() {
 
 type TestServer struct {
 	UpstreamGitRepo   GitRepo
-	upstreamServer    *http.Server
+	upstreamServer    *httptest.Server
 	UpstreamServerURL string
-	proxyServer       *http.Server
+	proxyServer       *httptest.Server
 	ProxyServerURL    string
 }
 
@@ -75,17 +75,8 @@ func NewTestServer(config *TestServerConfig) *TestServer {
 		s.UpstreamGitRepo.Run("config", "uploadpack.allowfilter", "1")
 		s.UpstreamGitRepo.Run("config", "receive.advertisepushoptions", "1")
 
-		s.upstreamServer = &http.Server{
-			Handler: http.HandlerFunc(s.upstreamServerHandler),
-		}
-		l, err := net.Listen("tcp", ":0")
-		if err != nil {
-			log.Fatal(err)
-		}
-		go func() {
-			s.upstreamServer.Serve(l)
-		}()
-		s.UpstreamServerURL = fmt.Sprintf("http://%s/", l.Addr().String())
+		s.upstreamServer = httptest.NewServer(http.HandlerFunc(s.upstreamServerHandler))
+		s.UpstreamServerURL = s.upstreamServer.URL
 	}
 
 	{
@@ -101,18 +92,8 @@ func NewTestServer(config *TestServerConfig) *TestServer {
 			ErrorReporter:      config.ErrorReporter,
 			RequestLogger:      config.RequestLogger,
 		}
-		s.proxyServer = &http.Server{
-			Handler: goblet.HTTPHandler(config),
-		}
-
-		l, err := net.Listen("tcp", ":0")
-		if err != nil {
-			log.Fatal(err)
-		}
-		go func() {
-			s.proxyServer.Serve(l)
-		}()
-		s.ProxyServerURL = fmt.Sprintf("http://%s/", l.Addr().String())
+		s.proxyServer = httptest.NewServer(goblet.HTTPHandler(config))
+		s.ProxyServerURL = s.proxyServer.URL
 	}
 	return s
 }
