@@ -29,11 +29,14 @@ load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
 
 gazelle_dependencies()
 
-git_repository(
+http_archive(
     name = "com_google_protobuf",
-    commit = "655310ca192a6e3a050e0ca0b7084a2968072260",
-    remote = "https://github.com/protocolbuffers/protobuf",
-    shallow_since = "1565024848 -0700",
+    sha256 = "528927e398f4e290001886894dac17c5c6a2e5548f3fb68004cfb01af901b53a",
+    strip_prefix = "protobuf-3.17.3",
+    urls = [
+        "https://mirror.bazel.build/github.com/protocolbuffers/protobuf/archive/v3.17.3.zip",
+        "https://github.com/protocolbuffers/protobuf/archive/v3.17.3.zip",
+    ],
 )
 
 load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
