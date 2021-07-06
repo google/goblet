@@ -24,10 +24,6 @@ http_archive(
     ],
 )
 
-load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
-
-gazelle_dependencies()
-
 http_archive(
     name = "com_google_protobuf",
     sha256 = "528927e398f4e290001886894dac17c5c6a2e5548f3fb68004cfb01af901b53a",
@@ -46,3 +42,7 @@ load("//:goblet_deps.bzl", "goblet_deps")
 
 # gazelle:repository_macro goblet_deps.bzl%goblet_deps
 goblet_deps()
+
+load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
+
+gazelle_dependencies()
