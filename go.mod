@@ -3,23 +3,26 @@ module github.com/google/goblet
 go 1.12
 
 require (
-	cloud.google.com/go v0.56.0
+	cloud.google.com/go v0.65.0
 	cloud.google.com/go/logging v1.0.0
-	cloud.google.com/go/storage v1.6.0
+	cloud.google.com/go/storage v1.10.0
 	contrib.go.opencensus.io/exporter/stackdriver v0.13.1
+	github.com/Microsoft/go-winio v0.5.0 // indirect
 	github.com/aws/aws-sdk-go v1.30.7 // indirect
-	github.com/golang/protobuf v1.4.0 // indirect
-	github.com/google/gitprotocolio v0.0.0-20180630173033-8d2b3b1c37f6
-	github.com/google/uuid v1.1.1
-	github.com/grpc-ecosystem/grpc-gateway v1.14.3
-	github.com/sergi/go-diff v1.1.0 // indirect
-	go.opencensus.io v0.22.3
-	golang.org/x/crypto v0.0.0-20200414173820-0848c9571904 // indirect
-	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d
-	golang.org/x/sys v0.0.0-20200413165638-669c56c373c4 // indirect
-	golang.org/x/tools v0.0.0-20200415034506-5d8e1897c761 // indirect
-	google.golang.org/api v0.21.0
-	google.golang.org/genproto v0.0.0-20200413115906-b5235f65be36
-	google.golang.org/grpc v1.28.1
+	github.com/google/gitprotocolio v0.0.0-20210704173409-b5a56823ae52
+	github.com/google/uuid v1.1.2
+	github.com/grpc-ecosystem/grpc-gateway v1.16.0
+	github.com/kevinburke/ssh_config v1.1.0 // indirect
+	github.com/sergi/go-diff v1.2.0 // indirect
+	github.com/xanzy/ssh-agent v0.3.0 // indirect
+	go.opencensus.io v0.23.0
+	golang.org/x/crypto v0.0.0-20210616213533-5ff15b29337e // indirect
+	golang.org/x/net v0.0.0-20210614182718-04defd469f4e // indirect
+	golang.org/x/oauth2 v0.0.0-20210628180205-a41e5a781914
+	golang.org/x/sys v0.0.0-20210630005230-0f9fa26af87c // indirect
+	google.golang.org/api v0.30.0
+	google.golang.org/appengine v1.6.7 // indirect
+	google.golang.org/genproto v0.0.0-20210701191553-46259e63a0a9
+	google.golang.org/grpc v1.39.0
 	gopkg.in/src-d/go-git.v4 v4.13.1
 )
