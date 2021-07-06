@@ -20,12 +20,12 @@ import (
 	"strings"
 	"time"
 
+	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/google/gitprotocolio"
 	"go.opencensus.io/stats"
 	"go.opencensus.io/tag"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"gopkg.in/src-d/go-git.v4/plumbing"
 )
 
 const (
