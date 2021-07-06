@@ -394,8 +394,8 @@ def goblet_deps():
     go_repository(
         name = "com_github_protonmail_go_crypto",
         importpath = "github.com/ProtonMail/go-crypto",
-        sum = "h1:YoJbenK9C67SkzkDfmQuVln04ygHj3vjZfd9FL+GmQQ=",
-        version = "v0.0.0-20210428141323-04723f9f07d7",
+        sum = "h1:BF5p87XWvmgdrTPPzcRMwC0TMQbviwQ+uBKfNfWJy50=",
+        version = "v0.0.0-20210705153151-cc34b1f6908b",
     )
     go_repository(
         name = "com_github_rogpeppe_fastuuid",

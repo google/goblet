@@ -8,6 +8,7 @@ require (
 	cloud.google.com/go/storage v1.10.0
 	contrib.go.opencensus.io/exporter/stackdriver v0.13.1
 	github.com/Microsoft/go-winio v0.5.0 // indirect
+	github.com/ProtonMail/go-crypto v0.0.0-20210705153151-cc34b1f6908b // indirect
 	github.com/aws/aws-sdk-go v1.30.7 // indirect
 	github.com/go-git/go-git/v5 v5.4.2
 	github.com/google/gitprotocolio v0.0.0-20210704173409-b5a56823ae52
