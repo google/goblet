@@ -575,8 +575,8 @@ def goblet_deps():
     go_repository(
         name = "org_golang_google_genproto",
         importpath = "google.golang.org/genproto",
-        sum = "h1:HBPuvo39L0DgfVn9eHR3ki/RjZoUFWa+em77e7KFDfs=",
-        version = "v0.0.0-20210701191553-46259e63a0a9",
+        sum = "h1:khwpF3oSk7GIab/7DDMDyE8cPQEO6FAfOcWHIRAhO20=",
+        version = "v0.0.0-20210708141623-e76da96a951f",
     )
     go_repository(
         name = "org_golang_google_grpc",
