@@ -35,6 +35,7 @@ import (
 	"github.com/google/uuid"
 	"go.opencensus.io/stats/view"
 	"go.opencensus.io/tag"
+	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
 
 	logpb "google.golang.org/genproto/googleapis/logging/v2"
@@ -230,7 +231,9 @@ func main() {
 		LocalDiskCacheRoot:         *cacheRoot,
 		URLCanonializer:            googlehook.CanonicalizeURL,
 		RequestAuthorizer:          authorizer,
-		TokenSource:                ts,
+		TokenSource:                func(upstreamURL *url.URL) (*oauth2.Token, error) {
+			return ts.Token()
+		},
 		ErrorReporter:              er,
 		RequestLogger:              rl,
 		LongRunningOperationLogger: lrol,
