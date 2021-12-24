@@ -64,7 +64,7 @@ type ServerConfig struct {
 
 	RequestAuthorizer func(*http.Request) error
 
-	TokenSource oauth2.TokenSource
+	TokenSource func(upstreamURL *url.URL) (*oauth2.Token, error)
 
 	ErrorReporter func(*http.Request, error)
 
