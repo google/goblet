@@ -21,7 +21,7 @@ require (
 	golang.org/x/crypto v0.0.0-20210616213533-5ff15b29337e // indirect
 	golang.org/x/net v0.0.0-20210614182718-04defd469f4e // indirect
 	golang.org/x/oauth2 v0.0.0-20210628180205-a41e5a781914
-	golang.org/x/sys v0.0.0-20210630005230-0f9fa26af87c // indirect
+	golang.org/x/sys v0.1.0 // indirect
 	google.golang.org/api v0.50.0
 	google.golang.org/genproto v0.0.0-20210708141623-e76da96a951f
 	google.golang.org/grpc v1.39.0
