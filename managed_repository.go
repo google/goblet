@@ -373,11 +373,13 @@ func (r *managedRepository) hasAnyUpdate(refs map[string]git.Oid) (bool, error) 
 	if err != nil {
 		return false, fmt.Errorf("cannot open the local cached repository: %v", err)
 	}
+	defer repo.Free()
 
 	odb, err := repo.Odb()
 	if err != nil {
 		return false, fmt.Errorf("cannot open odb: %v", err)
 	}
+	defer odb.Free()
 
 	for refName, expectedHash := range refs {
 		ref, err := lookupReference(repo, refName, true)
@@ -412,11 +414,13 @@ func (r *managedRepository) hasAllWants(hashes []git.Oid, refs []string) (bool, 
 	if err != nil {
 		return false, fmt.Errorf("cannot open the local cached repository: %v", err)
 	}
+	defer repo.Free()
 
 	odb, err := repo.Odb()
 	if err != nil {
 		return false, fmt.Errorf("cannot open odb: %v", err)
 	}
+	defer odb.Free()
 
 	for _, hash := range hashes {
 		if !odb.Exists(&hash) {
