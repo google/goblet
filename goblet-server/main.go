@@ -238,6 +238,15 @@ func main() {
 	})
 	defer cancel()
 
+	// Report disk usage metrics every 1 minute
+	log.Println("Starting disk usage monitoring...")
+	cancelDiskMonitoring := goblet.RunEvery(1*time.Minute, func(t time.Time) {
+		if err := goblet.ReportDiskUsage(configFile.CacheRoot); err != nil {
+			log.Printf("Failed to report disk usage: %v\n", err)
+		}
+	})
+	defer cancelDiskMonitoring()
+
 	log.Println("Registering HTTP routes...")
 	http.Handle("/", goblet.HTTPHandler(config))
 

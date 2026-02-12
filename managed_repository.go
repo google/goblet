@@ -30,6 +30,7 @@ import (
 	"strings"
 	"sync"
 	"sync/atomic"
+	"syscall"
 	"time"
 
 	"github.com/DataDog/datadog-go/statsd"
@@ -559,4 +560,35 @@ type operationWriter struct {
 func (w *operationWriter) Write(p []byte) (int, error) {
 	w.op.Printf("%s", string(p))
 	return len(p), nil
+}
+
+// ReportDiskUsage reports disk usage metrics to Datadog for the given path
+func ReportDiskUsage(path string) error {
+	var stat syscall.Statfs_t
+	err := syscall.Statfs(path, &stat)
+	if err != nil {
+		log.Printf("Failed to get disk stats for %s: %v\n", path, err)
+		return err
+	}
+
+	// Calculate disk usage in GB
+	totalGB := float64(stat.Blocks*uint64(stat.Bsize)) / 1024 / 1024 / 1024
+	freeGB := float64(stat.Bfree*uint64(stat.Bsize)) / 1024 / 1024 / 1024
+	availableGB := float64(stat.Bavail*uint64(stat.Bsize)) / 1024 / 1024 / 1024
+	usedGB := totalGB - freeGB
+	usedPercent := (usedGB / totalGB) * 100
+
+	tags := []string{fmt.Sprintf("path:%s", path)}
+
+	// Send metrics to Datadog
+	StatsdClient.Gauge("goblet.disk.total_gb", totalGB, tags, 1)
+	StatsdClient.Gauge("goblet.disk.used_gb", usedGB, tags, 1)
+	StatsdClient.Gauge("goblet.disk.free_gb", freeGB, tags, 1)
+	StatsdClient.Gauge("goblet.disk.available_gb", availableGB, tags, 1)
+	StatsdClient.Gauge("goblet.disk.used_percent", usedPercent, tags, 1)
+
+	log.Printf("Disk usage for %s: %.2f GB used / %.2f GB total (%.1f%% used, %.2f GB available)\n",
+		path, usedGB, totalGB, usedPercent, availableGB)
+
+	return nil
 }
