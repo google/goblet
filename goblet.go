@@ -257,10 +257,15 @@ func seedRepository(config *ServerConfig, repository *managedRepository) error {
 		if err != nil {
 			return err
 		}
-		defer outFile.Close()
 
 		// Copy the file data to the file
 		if _, err := io.Copy(outFile, tr); err != nil {
+			outFile.Close()
+			return err
+		}
+
+		// Close immediately instead of deferring in loop
+		if err := outFile.Close(); err != nil {
 			return err
 		}
 	}
